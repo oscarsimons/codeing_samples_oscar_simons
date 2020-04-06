@@ -1,0 +1,68 @@
+//not to self now need to use the controller and see what happens
+
+#include "mbed.h"
+Serial pc(USBTX, USBRX); // tx, rx
+PwmOut led(LED1);
+AnalogOut signal_one(PA_4);//setup of analog power output
+AnalogOut signal_two(PA_5);//setup for analog power stering output
+PwmOut stering_up_down(D5);//setup of pwm out for forwads and back moutions
+PwmOut stering_left_right(D6);//setup of left and right stering/moution controls
+int i=0;
+char* testinput;
+int Left_right=0.5, Forwads_back=0.5;
+float j=0, udpower=0, lrpower=0;
+int main() {
+    while(1){
+        stering_up_down.period(0.001f);  
+      stering_left_right.period(0.001f);  
+      
+
+        pc.printf("enter an input    ");
+        char c = pc.getc();
+        if(c == 'w') {
+              pc.printf("incresing power\r\r\n");
+              udpower=udpower+0.1; //incresses power 
+              }
+        if(c == 'a') {
+              pc.printf("left power\r\r\n");
+              lrpower=lrpower-0.1;//decresses power moveing the quadcopter to move left
+              }
+        if(c == 's') {
+              pc.printf("decresing power\r\r\n");
+              udpower=udpower-0.1; //lowers the quadcopter
+              }
+        if(c == 'd') {
+               pc.printf("right power\r\r\n");
+               lrpower=lrpower+0.1;//moves the quadcopter to the right by incresing the left power
+               }
+        if(c == 'i'){
+              pc.printf("forwads \r\r\n");
+               Forwads_back=Forwads_back+1; //moves the quadcopter to the forwads by incresing the forwads pwm duty cycle
+              }
+        if(c == 'j') {
+              pc.printf("left\r\r\n");
+              Left_right=Left_right-1;//moves the quadcopter to the left by decresing the left/right pwm duty cycle
+              }
+        if(c == 'k') {
+              pc.printf("back\r\r\n");
+              Forwads_back=Forwads_back-1;//moves the quadcopter to the left by decresing the forwads pwm duty cycle
+              }
+        if(c == 'l') {
+               pc.printf("right\r\r\n");
+               Left_right=Left_right+1;//moves the quadcopter to the right by increse the left/right pwm duty cycle
+               }
+        if(c == ' ') {
+               pc.printf("stop\r\r\n");
+               udpower=0; //gives no power to the quadcopter
+               lrpower=1.65;//centers the power of the quadcopter to help stop it crashing
+               Forwads_back=0.5;//gives half power to hold the quadcopter still
+               Left_right = 0.5;//gives half power to hold the quadcopter still
+               }       
+              
+      signal_two = lrpower;   
+     signal_one = udpower;
+    stering_up_down.pulsewidth(Forwads_back);
+    stering_left_right.pulsewidth(Left_right);
+    
+}
+}

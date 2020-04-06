@@ -1,0 +1,99 @@
+﻿Imports System
+Imports System.Threading
+Imports System.IO
+Imports System.IO.Ports
+Imports System.ComponentModel
+' code came from 
+'''https://sourceforge.net/projects/vbserialcomport/?source=typ_redirect
+
+Public Class Form1
+
+    '------------------------------------------------
+    Dim myPort As Array
+    Delegate Sub SetTextCallback(ByVal [text] As String) 'Added to prevent threading errors during receiveing of data
+    '------------------------------------------------
+    Private Sub Form1_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Dim fileparth As String
+        Dim image_parts As String
+
+        myPort = IO.Ports.SerialPort.GetPortNames()
+        ComboBox1.Items.AddRange(myPort)
+        Button2.Enabled = False
+
+        OpenFileDialog1.InitialDirectory = "c:\" 'sets defult location for images
+        OpenFileDialog1.RestoreDirectory = True
+        OpenFileDialog1.ShowDialog()        'opens the open file dialog box
+        txt_file_dialog.Text = OpenFileDialog1.FileName 'displays the text in a textbox 
+        fileparth = txt_file_dialog.Text   ''sets the value of th file to a string
+        image_parts = Mid(fileparth, 1, (Len(fileparth) - 8)) 'this line seperates the image parth from the image
+        txt_file_dialog.Text = image_parts
+
+        'Form1.txt_file_dialog.Text & "A-d3"
+        ' PictureBox1.ImageLocation = txt_file_dialog.Text & "A-d3.jpg"
+    End Sub
+    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles Button1.Click
+        SerialPort1.PortName = ComboBox1.Text
+        SerialPort1.BaudRate = ComboBox2.Text
+        SerialPort1.Open()
+        Button1.Enabled = False
+        Button2.Enabled = True
+        Button4.Enabled = True
+        btn_usser_input_to_game.Visible = True
+    End Sub
+    '------------------------------------------------
+    Private Sub Button2_Click(sender As System.Object, e As System.EventArgs) Handles Button2.Click
+        send_data()
+    End Sub
+    Public Sub send_data()
+        SerialPort1.Write(RichTextBox1.Text & vbCr) 'concatenate with \n
+    End Sub
+    Private Sub Button4_Click(sender As System.Object, e As System.EventArgs) Handles Button4.Click
+        SerialPort1.Close() ''uses to close the serial port
+        Button1.Enabled = True  ''disables buttons use to send data becuase the user dose not need to see them
+        Button2.Enabled = False
+        Button4.Enabled = False
+    End Sub
+    Private Sub SerialPort1_DataReceived(sender As System.Object, e As System.IO.Ports.SerialDataReceivedEventArgs) Handles SerialPort1.DataReceived
+        ReceivedText(SerialPort1.ReadExisting()) ''loks for data being recived
+    End Sub
+    Private Sub ReceivedText(ByVal [text] As String) 'input from ReadExisting
+        If Me.RichTextBox2.InvokeRequired Then
+            Dim x As New SetTextCallback(AddressOf ReceivedText)
+            Me.Invoke(x, New Object() {(text)})
+        Else
+            Me.RichTextBox2.Text &= [text] 'mergese the current text in the textbox to the current text
+        End If
+    End Sub
+    Private Sub btn_one_forwad_Click(sender As Object, e As EventArgs) Handles btn_one_forwad.Click
+        one_forwads() ''canot call a button click event so i created another procedure to do the funckins and called them
+    End Sub
+    Public Sub one_forwads()
+        RichTextBox1.Text = "u" ''see arduinio code for details of what this dose
+        send_data()
+    End Sub
+    Private Sub btn_one_back_Click(sender As Object, e As EventArgs) Handles btn_one_back.Click
+        one_back() ''canot call a button click event so i created another procedure to do the funckins and called them
+    End Sub
+    Public Sub one_back()
+        RichTextBox1.Text = "h" ''see arduinio code for details of what this dose
+        send_data()
+    End Sub
+    Public Sub two_forwads()
+        RichTextBox1.Text = "j" ''see arduinio code for details of what this dose
+        send_data()
+    End Sub
+    Private Sub btn_two_farwad_Click(sender As Object, e As EventArgs) Handles btn_two_farwad.Click
+        two_forwads() ''canot call a button click event so i created another procedure to do the funckins and called them
+    End Sub
+    Public Sub two_back()
+        RichTextBox1.Text = "k" ''see arduinio code for details of what this dose
+        send_data()
+    End Sub
+    Private Sub btn_two_back_Click(sender As Object, e As EventArgs) Handles btn_two_back.Click
+        two_back() ''canot call a button click event so i created another procedure to do the funckins and called them
+    End Sub
+    Private Sub btn_usser_input_to_game_Click(sender As Object, e As EventArgs) Handles btn_usser_input_to_game.Click
+        send_data()
+        use_displayvb.Show() ''displays the better user screen
+    End Sub
+End Class

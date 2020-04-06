@@ -1,0 +1,45 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+-- for acc to work r=1 and e=1 for clk to count
+entity acumulator is
+
+	generic (
+		NSTATES : natural := 256
+	);
+
+	port (
+		clk	  : in std_logic;
+		reset	  : in std_logic;
+		enable  : in std_logic;
+		clkout  : out std_logic
+	);
+
+end entity;
+
+architecture rtl of acumulator is
+	--signal opstate : std_logic;
+begin
+
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count : natural;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count := 0;
+			clkout <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count := count + 1;
+			if count = NSTATES then
+			   clkout <= '1';
+				count := 0;
+			else 
+				clkout <= '0';
+			end if;		
+		end if;
+	end process;
+
+end rtl;

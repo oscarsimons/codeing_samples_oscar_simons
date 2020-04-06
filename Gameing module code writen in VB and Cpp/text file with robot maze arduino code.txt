@@ -1,0 +1,83 @@
+#include <Servo.h>
+Servo myservo;  // create servo object to control a servo
+Servo myservo2;
+int potpin = 0;  // analog pin used to connect the potentiometer
+int val;    // variable to read the value from the analog pin
+int val_two;//varable used for one of the pots
+int incomingByte = 0;
+void setup() {
+  myservo.attach(A0);  // attaches the servo to a pin for the servo object
+  myservo2.attach(A4);// attaches the servo to a pin for the servo object
+  pinMode(A0, OUTPUT); 
+   Serial.begin(9600); 
+}
+void loop() {
+  //inorder to play the game the user mut choice witch vertion to download to the board the standod will be the computer
+keybord_to_servo(); //used during gameplay
+//poll_pots();
+}
+void keybord_to_servo(){
+   if (Serial.available() > 0) {//checks if there is a serial conection avalible
+                // read the incoming byte:
+                incomingByte = Serial.read();//reads the incomeing byte
+     ///****note** uhjk are random but they form a patten similer to the arrow keys
+                  switch (incomingByte){
+                    case 'u': //user types u
+                      myservo.write(65); //moves servo one anticlockwise
+                      Serial.print("one forwads \n\r");
+                      break; 
+                    case 'h'://user types h
+                      myservo.write(95);  //moves servo one clockwise
+                      Serial.print("one back \n\r");
+                      break; 
+                    case 'j'://user types j
+                          myservo2.write(65);//moves servo two anticlockwisee
+                          Serial.print("two forwads \n\r");
+                      break;
+                    case 'k'://user types k
+                       myservo2.write(95); // move servo two clockwis
+                       Serial.print("two back \n\r");
+                    break;
+                    case 'q'://user types q
+                        Left_right_left();  //will shake move the board into a dive in one corner and the game will end
+                    break;
+                    case 'l'://user types l
+                        poll_pots();//user will not have acsss to this in the final game but it can be used for testing
+                    break;
+                    default:
+                       myservo.write(85);//stop
+                       myservo2.write(85);//stop
+                       break;
+                  }
+        }
+                   delay(100); 
+                    myservo.write(85);//stop
+                    myservo2.write(85);//stop
+}
+void Left_right_left(){
+     //    val = map(val, 0, 1023, 70, 100);     // scale it to use it with the servo (value between 0 and 180)
+  myservo.write(75);//left
+  myservo2.write(75);//left
+  delay(1005);
+  myservo.write(85);//stop
+    myservo2.write(85);//stop
+  delay(1005);
+    myservo.write(95);//right
+  myservo2.write(95);//right
+  delay(1005);
+  myservo.write(85);//stop
+    myservo2.write(85);//stop
+  delay(1005);
+}
+void poll_pots(){
+  while(1){
+ //this is not used in the final game but it was critical for useing pysical controls it is also usefull in gtting the values i use above 75, 85, 95, 
+  val = analogRead(A1);  // reads the value of the potentiometer (value between 0 and 1023)
+  val = map(val, 0, 1023, 70, 100);     // scale it to use it with the servo (value between 0 and 180)
+  myservo.write(val);
+  val_two = analogRead(A2);  // reads the value of the potentiometer (value between 0 and 1023)
+  val_two = map(val_two, 0, 1023, 70, 100);     // scale it to use it with the servo (value between 0 and 180)
+  myservo2.write(val_two);
+   delay(15);
+  }
+}

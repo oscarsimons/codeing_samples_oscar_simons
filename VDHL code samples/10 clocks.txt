@@ -1,0 +1,313 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity clk_div2_new is
+
+	generic (
+		NSTATES : natural := 256;
+		NSTATES_two : natural := 256;
+		NSTATES_three : natural := 256;
+		NSTATES_four : natural := 256;
+		NSTATES_five : natural := 256;
+		NSTATES_six : natural := 256;
+		NSTATES_seven : natural := 256;
+		NSTATES_eight : natural := 256;
+		NSTATES_nine : natural := 256;
+		NSTATES_ten : natural := 256;
+		NSTATES_eleven : natural := 256
+	);
+
+	port (
+		clk	  : in std_logic;
+		reset	  : in std_logic;
+		enable  : in std_logic;
+		Clock_outs : out std_logic_vector(10 downto 0)
+		--clkout  : out std_logic;
+	);
+
+end entity;
+
+architecture rtl of clk_div2_new is
+	--signal Clock_outs(10 downto 0);
+begin
+---------------------------------------------------------------------------------------------------
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count : natural range 0 to NSTATES;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count := 0;
+			Clock_outs(0) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count := count + 1;
+			if count = NSTATES then
+				count := 0;
+			end if;
+			
+			--50% duty
+			if (count < (NSTATES/2)) then
+				Clock_outs(0) <= '0';
+			else	
+				Clock_outs(0) <= '1';
+			end if;
+		end if;
+	end process;
+--------------------------------------------------------------------------------------------	
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count_two : natural range 0 to NSTATES_two;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_two := 0;
+			Clock_outs(1) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_two := count_two + 1;
+			if count_two = NSTATES_two then
+				count_two := 0;
+			end if;
+			
+			--50% duty
+			if (count_two < (NSTATES_two/2)) then
+				Clock_outs(1) <= '0';
+			else	
+				Clock_outs(1) <= '1';
+			end if;
+		end if;
+	end process;
+----------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------	
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count_three : natural range 0 to NSTATES_three;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_three := 0;
+			Clock_outs(2) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_three := count_three + 1;
+			if count_three = NSTATES_three then
+				count_three := 0;
+			end if;
+			
+			--50% duty
+			if (count_three < (NSTATES_three/2)) then
+				Clock_outs(2) <= '0';
+			else	
+				Clock_outs(2) <= '1';
+			end if;
+		end if;
+	end process;
+----------------------------------------------------------------------------------------------	
+
+--------------------------------------------------------------------------------------------	
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count_four : natural range 0 to NSTATES_four;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_four := 0;
+			Clock_outs(3) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_four := count_four + 1;
+			if count_four = NSTATES_four then
+				count_four := 0;
+			end if;
+			
+			--50% duty
+			if (count_four < (NSTATES_four/2)) then
+				Clock_outs(3) <= '0';
+			else	
+				Clock_outs(3) <= '1';
+			end if;
+		end if;
+	end process;
+----------------------------------------------------------------------------------------------	
+process (clk, reset)
+		--NOTE THE RANGE
+		variable count_five : natural range 0 to NSTATES_five;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_five := 0;
+			Clock_outs(4) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_five := count_five + 1;
+			if count_five = NSTATES_five then
+				count_five := 0;
+			end if;
+			
+			--50% duty
+			if (count_five < (NSTATES_five/2)) then
+				Clock_outs(4) <= '0';
+			else	
+				Clock_outs(4) <= '1';
+			end if;
+		end if;
+	end process;
+----------------------------------------------------------------------------------------------	
+process (clk, reset)
+		--NOTE THE RANGE
+		variable count_six : natural range 0 to NSTATES_six;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_six := 0;
+			Clock_outs(5) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_six := count_six + 1;
+			if count_six = NSTATES_six then
+				count_six := 0;
+			end if;
+			
+			--50% duty
+			if (count_six < (NSTATES_six/2)) then
+				Clock_outs(5) <= '0';
+			else	
+				Clock_outs(5) <= '1';
+			end if;
+		end if;
+	end process;
+----------------------------------------------------------------------------------------------	
+process (clk, reset)
+		--NOTE THE RANGE
+		variable count_seven : natural range 0 to NSTATES_seven;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_seven := 0;
+			Clock_outs(6) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_seven := count_seven + 1;
+			if count_seven = NSTATES_seven then
+				count_seven := 0;
+			end if;
+			
+			--50% duty
+			if (count_seven < (NSTATES_seven/2)) then
+				Clock_outs(6) <= '0';
+			else	
+				Clock_outs(6) <= '1';
+			end if;
+		end if;
+	end process;
+---------------------------------------------------------------------------
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count_eight : natural range 0 to NSTATES_eight;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_eight := 0;
+			Clock_outs(7) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_eight := count_eight + 1;
+			if count_eight = NSTATES_eight then
+				count_eight := 0;
+			end if;
+			
+			--50% duty
+			if (count_eight < (NSTATES_eight/2)) then
+				Clock_outs(7) <= '0';
+			else	
+				Clock_outs(7) <= '1';
+			end if;
+		end if;
+	end process;
+---------------------------------------------------------------------------
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count_nine : natural range 0 to NSTATES_nine;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_nine := 0;
+			Clock_outs(8) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_nine := count_nine + 1;
+			if count_nine = NSTATES_nine then
+				count_nine := 0;
+			end if;
+			
+			--50% duty
+			if (count_nine < (NSTATES_nine/2)) then
+				Clock_outs(8) <= '0';
+			else	
+				Clock_outs(8) <= '1';
+			end if;
+		end if;
+	end process;	
+	--------------------------------------------------------------------------
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count_ten : natural range 0 to NSTATES_ten;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_ten := 0;
+			Clock_outs(9) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_ten := count_ten + 1;
+			if count_ten = NSTATES_ten then
+				count_ten := 0;
+			end if;
+			
+			--50% duty
+			if (count_ten < (NSTATES_ten/2)) then
+				Clock_outs(9) <= '0';
+			else	
+				Clock_outs(9) <= '1';
+			end if;
+		end if;
+	end process;	
+	--------------------------------------------------------------------------
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count_eleven : natural range 0 to NSTATES_eleven;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count_eleven := 0;
+			Clock_outs(10) <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count_eleven := count_eleven + 1;
+			if count_eleven = NSTATES_eleven then
+				count_eleven := 0;
+			end if;
+			
+			--50% duty
+			if (count_eleven < (NSTATES_eleven/2)) then
+				Clock_outs(10) <= '0';
+			else	
+				Clock_outs(10) <= '1';
+			end if;
+		end if;
+	end process;
+	
+end rtl;

@@ -1,0 +1,341 @@
+﻿Public Class use_displayvb
+    Dim Time_left As Integer = 120
+    Dim yaw As Integer = 2 ''values can be 0 1 2 3 4 with 2 in the middle as a defult
+    Dim pitch As Integer = 2 'values can be 0 1 2 3 4 with 2 in the middle as a defult
+    Private Sub top_left_MouseHover(sender As Object, e As EventArgs) Handles top_left.MouseHover
+        top_left_event() 'see procdure below for more details of what this will contain
+        'display_images() '''''''''''''''''''
+    End Sub
+    Private Sub top_right_MouseHover(sender As Object, e As EventArgs) Handles top_right.MouseHover
+        top_right_event()
+        'display_images() '''''''''''''''''
+        'see below form mor details on what this contains
+    End Sub
+    Private Sub bottom_left_MouseHover(sender As Object, e As EventArgs) Handles bottom_left.MouseHover
+        bottom_left_event()
+        ''see below for more details on what this containd
+        'display_images() '''''''''''''''''''''''''''
+    End Sub
+    Private Sub bottom_right_MouseHover(sender As Object, e As EventArgs) Handles bottom_right.MouseHover
+        bottom_right_event() 'see below for more details on what this contains
+        display_images() ''''''''''''''''''
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        Time_left = Time_left - 1
+        display_images() 'gives the screen updated images base on the current yaw and pitch values
+        txt_time_left.Text = Time_left.ToString ''updates the time left so the user can see it
+        If Time_left = 0 Then
+            Timer1.Stop() ''stops the timr
+            MsgBox("you ran out of timebetter luck next time", vbOKOnly, "you Lose") '' gives the user a popup to signifi game is over
+            txt_time_left.Visible = False
+            btn_restart_clock.Visible = True
+        End If
+    End Sub
+    Private Sub btn_restart_clock_Click(sender As Object, e As EventArgs) Handles btn_restart_clock.Click
+
+        setup_board()
+
+        yaw = 2
+        pitch = 2
+
+    End Sub
+    Private Sub top_left_Click(sender As Object, e As EventArgs) Handles top_left.Click
+        top_left_event() 'see bellow for more details on what this contains
+    End Sub
+    Private Sub top_right_Click(sender As Object, e As EventArgs) Handles top_right.Click
+        top_right_event()
+        'see bellow for more details on what this contains
+    End Sub
+    Private Sub bottom_left_Click(sender As Object, e As EventArgs) Handles bottom_left.Click
+        'see bellow for more details on what this contains
+        bottom_left_event()
+    End Sub
+    Private Sub bottom_right_Click(sender As Object, e As EventArgs) Handles bottom_right.Click
+        bottom_right_event() 'see bellow for more details on what this contains
+    End Sub
+    Private Sub display_images()
+        'this is a large case statment useing the file where the images are located and the individual file name
+        ''the case statment is long but is dose the same thing it takes the yaw and the pitch values of 0 to 5 and outputs 4 images base on this
+        '' there is not mutch of a better way to do this its just long
+        Select Case yaw
+            Case 0
+                Select Case pitch
+                    Case 0
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-A1.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-A1.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-A1.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-A1.jpg"
+                    Case 1
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-A2.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-A2.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-A2.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-A2.jpg"
+                    Case 2
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-A3.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-A3.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-A3.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-A3.jpg"
+                    Case 3
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-A4.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-A4.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-A4.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-A4.jpg"
+                    Case 4
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-A5.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-A5.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-A5.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-A5.jpg"
+                End Select
+            Case 1
+
+                Select Case pitch
+                    Case 0
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-B1.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-B1.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-B1.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-B1.jpg"
+                    Case 1
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-B2.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-B2.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-B2.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-B2.jpg"
+                    Case 2
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-B3.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-B3.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-B3.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-B3.jpg"
+                    Case 3
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-B4.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-B4.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-B4.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-B4.jpg"
+                    Case 4
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-B5.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-B5.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-B5.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-B5.jpg"
+                End Select
+            Case 2
+
+                Select Case pitch
+                    Case 0
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-c1.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-c1.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-c1.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-c1.jpg"
+                    Case 1
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-c2.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-c2.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-c2.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-c2.jpg"
+                    Case 2
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-c3.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-c3.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-c3.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-c3.jpg"
+                    Case 3
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-c4.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-c4.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-c4.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-c4.jpg"
+                    Case 4
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-c5.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-c5.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-c5.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-c5.jpg"
+                End Select
+
+            Case 3
+
+                Select Case pitch
+                    Case 0
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-d1.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-d1.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-d1.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-d1.jpg"
+                    Case 1
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-d2.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-d2.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-d2.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-d2.jpg"
+                    Case 2
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-d3.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-d3.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-d3.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-d3.jpg"
+                    Case 3
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-d4.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-d4.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-d4.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-d4.jpg"
+                    Case 4
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-d5.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-d5.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-d5.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-d5.jpg"
+                End Select
+
+            Case 4
+
+                Select Case pitch
+                    Case 0
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-e1.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-e1.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-e1.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-e1.jpg"
+                    Case 1
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-e2.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-e2.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-e2.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-e2.jpg"
+                    Case 2
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-e3.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-e3.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-e3.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-e3.jpg"
+                    Case 3
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-e4.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-e4.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-e4.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-e4.jpg"
+                    Case 4
+                        top_left.ImageLocation = Form1.txt_file_dialog.Text & "A-e5.jpg"
+                        top_right.ImageLocation = Form1.txt_file_dialog.Text & "B-e5.jpg"
+                        bottom_left.ImageLocation = Form1.txt_file_dialog.Text & "C-e5.jpg"
+                        bottom_right.ImageLocation = Form1.txt_file_dialog.Text & "D-e5.jpg"
+                End Select
+        End Select
+        '  yaw
+        '  pitch
+    End Sub
+    Private Sub bottom_right_event()
+        Form1.two_back()
+        Form1.one_forwads()
+        ''selects the yaw and the pitch
+        ''pitch = 0 to 4 yaw 0 to 4
+        If (yaw < 4) Then
+            yaw = yaw + 1
+        End If
+        If (pitch > 0) Then
+            pitch = pitch - 1
+        End If
+        txt_yaw.Text = yaw
+        txt_pitch.Text = pitch
+        'display_images()
+        display_images()
+    End Sub
+    Private Sub top_right_event()
+        Form1.one_back()
+        Form1.two_back()
+        ''selects the yaw and the pitch
+        ''pitch = 0 to 4 yaw 0 to 4
+        If (yaw < 4) Then
+            yaw = yaw + 1
+        End If
+        If (pitch > 0) Then
+            pitch = pitch - 1
+        End If
+        txt_yaw.Text = yaw
+        txt_pitch.Text = pitch
+        display_images()
+    End Sub
+    Private Sub bottom_left_event()
+        Form1.one_forwads()
+        Form1.two_forwads()
+        If (yaw > 0) Then
+
+            yaw = yaw - 1
+        End If
+        If (pitch < 4) Then
+            pitch = pitch + 1
+        End If
+
+        'yaw = yaw - 1
+        'pitch = pitch + 1
+        txt_yaw.Text = yaw
+            txt_pitch.Text = pitch
+        ' display_images()
+
+        display_images()
+    End Sub
+    Private Sub top_left_event()
+        Form1.one_back()
+        Form1.two_forwads()
+        If (yaw < 4) Then
+            yaw = yaw + 1
+        End If
+
+        If (pitch > 0) Then
+            pitch = pitch - 1
+        End If
+
+        'yaw = yaw + 1
+        'pitch = pitch - 1
+        txt_yaw.Text = yaw
+            txt_pitch.Text = pitch
+
+        display_images()
+    End Sub
+    Private Sub btn_maunaly_set_image_Click(sender As Object, e As EventArgs) Handles btn_maunaly_set_image.Click
+        yaw = txt_yaw.Text ''this was used temporerly fgor testing porposes to se images but is now not in use
+        pitch = txt_pitch.Text
+        display_images()''runs through a large case statment to find ont witch image to use
+    End Sub
+
+    Private Sub use_displayvb_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        setup_board()
+    End Sub
+
+    Private Sub setup_board()
+        ''this procedure looks at the current yaw value and then makes the board move to the center in both cases
+        Timer1.Start()  ''starts the timer
+        Time_left = 180  '' time limit is 3 minits
+        txt_time_left.Visible = True ''makes the time left text box visible
+        btn_restart_clock.Visible = False ''the user cant restart uptill the timer has run out
+        Select Case yaw
+            Case 0
+                top_left_event()
+                bottom_left_event()
+                top_left_event()
+                bottom_left_event()
+            Case 1
+                top_left_event()
+                bottom_left_event()
+            Case 2
+                ''this dose not need anything noe to it
+            Case 3
+                top_right_event()
+                bottom_right_event()
+            Case 4
+                top_right_event()
+                bottom_right_event()
+                top_right_event()
+                bottom_right_event()
+        End Select
+        Select Case pitch
+            Case 0
+                top_left_event()
+                top_right_event()
+                top_left_event()
+                top_right_event()
+            Case 1
+                top_left_event()
+                top_right_event()
+            Case 2
+                ''middle no reset servo necercery
+            Case 3
+                bottom_left_event()
+                bottom_right_event()
+            Case 4
+                bottom_left_event()
+                bottom_right_event()
+                bottom_left_event()
+                bottom_right_event()
+        End Select
+    End Sub
+    Private Sub btn_quit_game_Click(sender As Object, e As EventArgs) Handles btn_quit_game.Click
+        Form1.RichTextBox1.Text = "q"   ''makes the board pull to one side and makes the ball fall
+        Form1.send_data() ''sends the data q to the arudinio
+    End Sub
+End Class

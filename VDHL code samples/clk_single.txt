@@ -1,0 +1,49 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity clk_div is
+
+	generic (
+		NSTATES : natural := 256
+	);
+
+	port (
+		clk	  : in std_logic;
+		reset	  : in std_logic;
+		enable  : in std_logic;
+		clkout  : out std_logic
+	);
+
+end entity;
+
+architecture rtl of clk_div is
+	--signal opstate : std_logic;
+begin
+
+	process (clk, reset)
+		--NOTE THE RANGE
+		variable count : natural range 0 to NSTATES;
+	begin
+		if reset = '0' then 
+			-- Reset the counter to 0
+			count := 0;
+			clkout <= '0';
+		elsif rising_edge(clk) and (enable = '1') then
+		
+			-- Increment the counter if counting is enabled
+			count := count + 1;
+			if count = NSTATES then
+				count := 0;
+			end if;
+			
+			--50% duty
+			if (count < (NSTATES/2)) then
+				clkout <= '0';
+			else	
+				clkout <= '1';
+			end if;
+		end if;
+	end process;
+
+end rtl;

@@ -1,0 +1,24 @@
+import time
+import VL53L0X
+
+
+tof0 = VL53L0X.VL53L0X(TCA9548A_Num=0, TCA9548A_Addr=0x70)##sets up the sensors 0 to 7 by createing the object instance
+tof1 = VL53L0X.VL53L0X(TCA9548A_Num=1, TCA9548A_Addr=0x70)
+tof2 = VL53L0X.VL53L0X(TCA9548A_Num=2, TCA9548A_Addr=0x70)
+tof3 = VL53L0X.VL53L0X(TCA9548A_Num=3, TCA9548A_Addr=0x70)
+tof4 = VL53L0X.VL53L0X(TCA9548A_Num=4, TCA9548A_Addr=0x70)
+tof5 = VL53L0X.VL53L0X(TCA9548A_Num=5, TCA9548A_Addr=0x70)
+tof6 = VL53L0X.VL53L0X(TCA9548A_Num=6, TCA9548A_Addr=0x70)
+
+
+tof0.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)## starts the sensors to run to make sure they are conected to the device
+
+tof1.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+tof2.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+
+tof3.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+tof4.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+
+tof5.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+tof6.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+
